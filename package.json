@@ -9,8 +9,14 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "watch": "gulp watch",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.23.6",
+    "gulp": "^3.9.1",
+    "gulp-sass": "^3.1.0"
   }
 }
