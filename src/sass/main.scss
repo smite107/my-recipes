@@ -1,7 +1,23 @@
+@import 'reset';
 @import 'header';
+@import 'variables';
 
 body {
-    background: #fff;
-    color: black;
-    font-size: 55px;
+    background: $gray-bg;
+    margin-top: 100px;
+}
+
+.container {
+    width: 1000px;
+    margin: 0 auto;
+}
+
+.pull-right {
+    float: right;
+}
+
+button, input {
+    &:focus {
+        outline: none;
+    }
 }
