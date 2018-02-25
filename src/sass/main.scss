@@ -3,8 +3,9 @@
 @import 'variables';
 
 body {
-    background: $gray-bg;
+    background-color: $gray-bg;
     margin-top: 100px;
+    font-family: sans-serif;
 }
 
 .container {
@@ -20,4 +21,9 @@ button, input {
     &:focus {
         outline: none;
     }
+}
+
+main {
+    background-color: white;
+    padding: 20px 30px;
 }
