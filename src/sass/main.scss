@@ -1,6 +1,12 @@
 @import 'reset';
 @import 'header';
+@import 'recipe';
+@import 'grid';
 @import 'variables';
+
+*, ::after, ::before {
+    box-sizing: border-box;
+}
 
 body {
     background-color: $gray-bg;
@@ -17,6 +23,10 @@ body {
     float: right;
 }
 
+.mb-20 {
+    margin-bottom: 20px;
+}
+
 button, input {
     &:focus {
         outline: none;
@@ -25,5 +35,29 @@ button, input {
 
 main {
     background-color: white;
-    padding: 20px 30px;
+    padding: 45px 60px;
+}
+
+h1 {
+    font-family: Calibri, sans-serif;
+    font-size: 30px;
+    margin-bottom: 10px
+}
+
+h2 {
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+a {
+    color: $link-color;
+}
+
+ul.marked-ul {
+    list-style: disc;
+    margin-left: 18px;
+
+    li {
+        margin-bottom: 5px;
+    }
 }
