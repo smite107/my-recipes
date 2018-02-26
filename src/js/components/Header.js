@@ -1,34 +1,35 @@
-import React, { Component } from 'react';
-import Search from './Search';
-import logo from '../../images/logo.png';
+import React, { Component } from "react";
+import Search from "./Search";
+import {Link, NavLink} from 'react-router-dom';
+import logo from "../../images/logo.png";
 
 class Header extends Component {
   render() {
     return (
       <header>
-        <a href="logo.com" className="header__logo">
+        <Link to="/" className="header__logo">
           <img src={logo} alt="Мои рецепты" />
-        </a>
-        <nav class="header__menu">
+        </Link>
+        <nav className="header__menu">
           <ul>
             <li>
-              <a href="#">Завтраки</a>
+              <NavLink to="/recipe/1" activeClassName="active">Завтраки</NavLink>
             </li>
             <li>
-              <a href="#">Основные блюда</a>
+              <NavLink to="/recipe/2" activeClassName="active">Основные блюда</NavLink>
             </li>
             <li>
-              <a href="#">Полдники</a>
+              <NavLink to="/recipe/3" activeClassName="active">Полдники</NavLink>
             </li>
             <li>
-              <a href="#">Гарниры</a>
+              <NavLink to="/recipe/4" activeClassName="active">Гарниры</NavLink>
             </li>
             <li>
-              <a href="#">Десерты</a>
+              <NavLink to="/recipe/5" activeClassName="active">Десерты</NavLink>
             </li>
           </ul>
         </nav>
-        <div class="pull-right">
+        <div className="pull-right">
           <Search />
         </div>
       </header>

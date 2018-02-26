@@ -1,22 +1,22 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 class Search extends Component {
   constructor(props) { 
     super(props); 
     this.state = {
-      searchText: '',
+      searchText: "",
       active    : false 
     }; 
   }
 
   componentWillMount() {
     // add event listener for clicks
-    document.addEventListener('mousedown', this.handleClick, false);
+    document.addEventListener("mousedown", this.handleClick, false);
   }
 
   componentWillUnmount() {
     // make sure you remove the listener when the component is destroyed
-    document.removeEventListener('mousedown', this.handleClick, false);
+    document.removeEventListener("mousedown", this.handleClick, false);
   }
 
   handleClick = (e) => {
@@ -50,11 +50,11 @@ class Search extends Component {
   render() {
     let searchResults = [];
     const recipes = [
-      {name: 'Картошка фри'},
-      {name: 'Супер-горох'},
-      {name: 'Рисик по-китайски'},
-      {name: 'Удон'},
-      {name: 'Картофель по-деревенски'}
+      {name: "Картошка фри"},
+      {name: "Супер-горох"},
+      {name: "Рисик по-китайски"},
+      {name: "Удон"},
+      {name: "Картофель по-деревенски"}
     ];
 
     recipes.forEach((recipe) => {
@@ -64,7 +64,7 @@ class Search extends Component {
     });
 
     return (
-      <div className={'search ' + (this.state.active ? 'active' : '')} 
+      <div className={"search " + (this.state.active ? "active" : "")} 
            onClick={() => this.setActive(true)} 
            ref={node => this.node = node}>
         <input className="search__box" 
@@ -72,8 +72,8 @@ class Search extends Component {
                placeholder="Поиск..." 
                onChange={(e) => this.setSearchText(e)}
                value={this.state.searchText} />
-        <button className="search__button"></button>
-        <ul class="search__results">
+        <button className="search__button" />
+        <ul className="search__results">
           {searchResults}
         </ul>
       </div>

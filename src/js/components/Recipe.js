@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 class Recipe extends Component {
+
   render() {
     const recipe = {
       name        : "Крылышки Буффало",
@@ -24,13 +25,13 @@ class Recipe extends Component {
     });
     return (
       <div className="recipe">
-        <h1>{recipe.name}</h1>
+        <h1>{recipe.name} {this.props.match.params.recipeId}</h1>
         <a href={recipe.categoryLink} className="recipe__category">{recipe.categoryName}</a>
-        <div class="row mb-20">
-          <div class="col-6">
+        <div className="row mb-20">
+          <div className="col-6">
             <img src={"../../images/" + recipe.image} alt={recipe.name} className="recipe__photo" />
           </div>
-          <div class="col-6">
+          <div className="col-6">
             <h2>Ингредиенты</h2>
             <ul className="marked-ul">{ingredients}</ul>
           </div>
