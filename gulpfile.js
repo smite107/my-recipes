@@ -53,5 +53,5 @@ gulp.task('eslint', () => {
 
 gulp.task('watch', ['browser-sync'], () => {
   gulp.watch('src/sass/**/*.scss', ['sass']);
-  gulp.watch(['src/js/**/*.js'], ['eslint']);
+  gulp.watch(['src/js/**/*.js', 'src/index.js'], ['eslint']);
 });

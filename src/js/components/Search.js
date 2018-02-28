@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import {Link} from "react-router-dom";
 
 class Search extends Component {
   constructor(props) { 
@@ -39,40 +40,51 @@ class Search extends Component {
    // this.setState({active: state});
   //};
 
-  setSearchText(e) {
-    this.setState({searchText: e.target.value});
+  setSearchText(text) {
+    this.setState({searchText: text});
   }
 
   setActive(state) {
     this.setState({active: state});
   }
 
+  createListItem(recipe) {
+    return (
+      <li key={recipe.id} onClick={() => { 
+                                      this.setActive(false); 
+                                      this.setSearchText(recipe.name); } 
+                                  }>
+        <Link to={"/recipe/" + recipe.id}>{recipe.name}</Link>
+      </li>
+    );
+  }
+
   render() {
     let searchResults = [];
     const recipes = [
-      {name: "Картошка фри"},
-      {name: "Супер-горох"},
-      {name: "Рисик по-китайски"},
-      {name: "Удон"},
-      {name: "Картофель по-деревенски"}
+      {name: "Картошка фри", id: "1"},
+      {name: "Супер-горох", id: "2"},
+      {name: "Рисик по-китайски", id: "3"},
+      {name: "Удон", id: "4"},
+      {name: "Картофель по-деревенски", id: "5"}
     ];
 
     recipes.forEach((recipe) => {
       if (this.state.searchText.length > 2 && recipe.name.toLowerCase().indexOf(this.state.searchText.toLowerCase()) !== -1) {
-        searchResults.push(<li key={recipe.name}>{recipe.name}</li>);
+        searchResults.push(this.createListItem(recipe));
       }
     });
 
     return (
-      <div className={"search " + (this.state.active ? "active" : "")} 
-           onClick={() => this.setActive(true)} 
+      <div className={"search " + (this.state.active ? "active" : "")}
            ref={node => this.node = node}>
         <input className="search__box" 
                type="text" 
                placeholder="Поиск..." 
-               onChange={(e) => this.setSearchText(e)}
-               value={this.state.searchText} />
-        <button className="search__button" />
+               onChange={(e) => this.setSearchText(e.target.value)}
+               value={this.state.searchText}  
+               onClick={() => this.setActive(true)} />
+        <button className="search__button" onClick={() => this.setActive(true)} />
         <ul className="search__results">
           {searchResults}
         </ul>

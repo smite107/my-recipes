@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import {Link} from "react-router-dom";
 
 class Recipe extends Component {
 
@@ -26,7 +27,7 @@ class Recipe extends Component {
     return (
       <div className="recipe">
         <h1>{recipe.name} {this.props.match.params.recipeId}</h1>
-        <a href={recipe.categoryLink} className="recipe__category">{recipe.categoryName}</a>
+        <Link to={recipe.categoryLink} className="recipe__category">{recipe.categoryName}</Link>
         <div className="row mb-20">
           <div className="col-6">
             <img src={"../../images/" + recipe.image} alt={recipe.name} className="recipe__photo" />
