@@ -23,10 +23,6 @@ body {
     float: right;
 }
 
-.mb-20 {
-    margin-bottom: 20px;
-}
-
 button, input {
     &:focus {
         outline: none;
@@ -46,18 +42,22 @@ h1 {
 
 h2 {
     font-weight: bold;
-    margin-bottom: 12px;
+    margin-bottom: 15px;
 }
 
 a {
     color: $link-color;
 }
 
-ul.marked-ul {
+ul.marked {
     list-style: disc;
     margin-left: 18px;
 
     li {
         margin-bottom: 5px;
     }
+}
+
+img {
+    max-width: 100%;
 }

@@ -3,24 +3,32 @@ import {NavLink} from "react-router-dom";
 
 class NavMenu extends Component {
   render() {
+    const categories = [
+      {
+        id: "1",
+        name: "Завтраки"
+      }, {
+        id: "2",
+        name: "Полдники"
+      }, {
+        id: "3",
+        name: "Основные блюда"
+      }, {
+        id: "4",
+        name: "Гарниры"
+      }, {
+        id: "5",
+        name: "Десерты"
+      }
+    ];
     return (
       <nav className="header__menu">
         <ul>
-          <li>
-            <NavLink to="/recipe/1" activeClassName="active">Завтраки</NavLink>
-          </li>
-          <li>
-            <NavLink to="/recipe/2" activeClassName="active">Основные блюда</NavLink>
-          </li>
-          <li>
-            <NavLink to="/recipe/3" activeClassName="active">Полдники</NavLink>
-          </li>
-          <li>
-            <NavLink to="/recipe/4" activeClassName="active">Гарниры</NavLink>
-          </li>
-          <li>
-            <NavLink to="/recipe/5" activeClassName="active">Десерты</NavLink>
-          </li>
+          {categories.map((c) => (
+            <li key={c.id}>
+              <NavLink to={"/category/" + c.id} activeClassName="active">{c.name}</NavLink>
+            </li>
+          ))}
         </ul>
       </nav>
     );
