@@ -32,12 +32,9 @@ class Recipe extends Component {
         }
       ]
     };
-    let ingredients = recipe.ingredients.map((i) => (
-      <li key={i}>{i}</li>
-    ));
     return (
       <div className="recipe">
-        <h1>{recipe.name}</h1>
+        <h1 className="recipe__header">{recipe.name}</h1>
         <Link to={"/category/" + recipe.categoryId} className="recipe__category mb--30">{recipe.categoryName}</Link>
         <div className="row mb--30">
           <div className="col--6">
@@ -45,7 +42,11 @@ class Recipe extends Component {
           </div>
           <div className="col--6">
             <h2>Ингредиенты</h2>
-            <ul className="marked">{ingredients}</ul>
+            <ul className="marked">
+              {recipe.ingredients.map((i) => (
+                <li key={i}>{i}</li>
+              ))}
+            </ul>
           </div>
         </div>
         <div className="recipe__description mb--30">

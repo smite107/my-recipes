@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import CategoryPreview from "./CategoryPreview";
+import {Link} from "react-router-dom";
 
 class CategoriesListContainer extends Component {
   render() {
@@ -23,7 +23,6 @@ class CategoriesListContainer extends Component {
     ];
     return (
       <div className="categories-list">
-        <h1>Категории</h1>
         <CategoriesList categories={categories} columnWidth="3" />
       </div>
     );
@@ -33,12 +32,24 @@ class CategoriesListContainer extends Component {
 const CategoriesList = ({categories, columnWidth}) => (
   <div className="row">
     {categories.map((c) => (
-      <div className={"col--" + columnWidth} key={c.id}>
+      <div className={"col--" + columnWidth + " mb--30"} key={c.id}>
         <CategoryPreview id={c.id} name={c.name} />
       </div>
     ))}
   </div>
 );
 
-export {CategoriesListContainer}
+
+const CategoryPreview = ({id, name}) => (
+  <div className="preview">
+    <Link to={"/category/" + id} className="preview__image-wrap">
+      <img src={"../../images/categories/" + id + ".jpg"} alt={name} />
+    </Link>
+    <Link to={"/category/" + id} className="preview__name--category">
+      {name}
+    </Link>
+  </div>
+);
+
+export {CategoriesListContainer, CategoryPreview}
 export default CategoriesList;

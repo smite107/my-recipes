@@ -1,0 +1,9 @@
+.preview__image-wrap {
+    margin-bottom: 10px;
+    display: block;
+}
+
+.preview__name--category {
+    font-weight: bold;
+    text-decoration: none;
+}
