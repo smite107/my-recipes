@@ -1,26 +1,10 @@
 import React, { Component } from "react";
 import {NavLink} from "react-router-dom";
+import ApiCaller from "./ApiCaller";
 
 class NavMenu extends Component {
   render() {
-    const categories = [
-      {
-        id: "1",
-        name: "Завтраки"
-      }, {
-        id: "2",
-        name: "Полдники"
-      }, {
-        id: "3",
-        name: "Основные блюда"
-      }, {
-        id: "4",
-        name: "Гарниры"
-      }, {
-        id: "5",
-        name: "Десерты"
-      }
-    ];
+    const categories = ApiCaller.getAllCategories();
     return (
       <nav className="header__menu">
         <ul>

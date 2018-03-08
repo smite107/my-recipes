@@ -76,14 +76,16 @@ class Search extends Component {
     });
 
     return (
-      <div className={"search " + (this.state.active ? "active" : "")}
-           ref={node => this.node = node}>
-        <input className="search__box" 
-               type="text" 
-               placeholder="Поиск..." 
-               onChange={(e) => this.setSearchText(e.target.value)}
-               value={this.state.searchText}  
-               onClick={() => this.setActive(true)} />
+      <div 
+          className={"search " + (this.state.active ? "active" : "")}
+          ref={node => this.node = node}>
+        <input 
+          className="search__box" 
+          type="text" 
+          placeholder="Поиск..." 
+          onChange={(e) => this.setSearchText(e.target.value)}
+          value={this.state.searchText}  
+          onClick={() => this.setActive(true)} />
         <button className="search__button" onClick={() => this.setActive(true)} />
         <ul className="search__results">
           {searchResults}

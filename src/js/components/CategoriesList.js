@@ -1,26 +1,10 @@
 import React, { Component } from "react";
 import {Link} from "react-router-dom";
+import ApiCaller from "./ApiCaller";
 
 class CategoriesListContainer extends Component {
   render() {
-    const categories = [
-      {
-        id: "1",
-        name: "Завтраки"
-      }, {
-        id: "2",
-        name: "Полдники"
-      }, {
-        id: "3",
-        name: "Основные блюда"
-      }, {
-        id: "4",
-        name: "Гарниры"
-      }, {
-        id: "5",
-        name: "Десерты"
-      }
-    ];
+    const categories = ApiCaller.getAllCategories();
     return (
       <div className="categories-list">
         <CategoriesList categories={categories} columnWidth="3" />

@@ -1,31 +1,15 @@
 import React, { Component } from "react";
 import {Link} from "react-router-dom";
+import ApiCaller from "./ApiCaller";
 
 class RecipesListContainer extends Component {
   render() {
     const categoryId = this.props.match.params.categoryId;
-    const categories = {
-      "1": "Завтраки",
-      "2": "Полдники",
-      "3": "Основные блюда",
-      "4": "Гарниры",
-      "5": "Десерты"
-    };
-    const recipes = [
-      {
-        id: "1",
-        name: "Картошка фри"
-      }, {
-        id: "2",
-        name: "Супер-горох"
-      }, {
-        id: "3",
-        name: "Крылышки Буффало"
-      }
-    ];
+    const category = ApiCaller.getCategory(categoryId);
+    const recipes = ApiCaller.getRecipesList(categoryId);
     return (
       <div className="recipes-list">
-        <h1>{categories[categoryId]}</h1>
+        <h1>{category.name}</h1>
         <RecipesList recipes={recipes} columnWidth="3" />
       </div>
     );

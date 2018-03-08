@@ -1,17 +1,12 @@
 let gulp        = require('gulp'),
     sass        = require('gulp-sass'),
     eslint      = require('gulp-eslint'),
-    notify      = require('gulp-notify'),
     plumber     = require('gulp-plumber'),
     cleanCSS    = require('gulp-clean-css'),
     sourcemaps  = require('gulp-sourcemaps'),
     browserSync = require('browser-sync').create();
 
 var onError = function(err) {
-  notify.onError({
-    title:    "Error",
-    message:  "<%= error %>",
-  })(err);
   this.emit('end');
 };
 
