@@ -3,24 +3,33 @@ import TextInput from "./form/TextInput";
 import Textarea from "./form/Textarea";
 import Select from "./form/Select";
 import IngredientsPicker from "./form/IngredientsPicker";
-import ApiCaller from "./ApiCaller";
 
 class RecipeEdit extends Component {
   constructor(props) {
     super(props);
-    const recipeId = props.match.params.recipeId;
-    const recipe = ApiCaller.getRecipe(recipeId);
     this.state = {
-      name       : recipe.name,
-      category   : recipe.category.id,
-      description: recipe.description,
-      ingredients: recipe.ingredients
+      categoriesList: [],
+      name          : "",
+      category      : "",
+      description   : "",
+      ingredients   : []
     }
-
     this.handleChange = this.handleChange.bind(this);
     this.handleIngredientsChange = this.handleIngredientsChange.bind(this);
     this.handleIngredientsAdd = this.handleIngredientsAdd.bind(this);
     this.handleIngredientsRemove = this.handleIngredientsRemove.bind(this);
+  }
+
+  componentDidMount() {
+    const recipeId = this.props.match.params.recipeId;
+    //get recipe
+    fetch('/getRecipe/' + recipeId)
+      .then(res => res.json())
+      .then(recipe => this.setState({ ...recipe }));
+    //get categories list
+    fetch('/getAllCategories')
+      .then(res => res.json())
+      .then(categoriesList => this.setState({ categoriesList }));
   }
 
   handleChange(e) {
@@ -51,31 +60,31 @@ class RecipeEdit extends Component {
   }
 
   render() {
-    //{(e) => (this.handleChange(e))} ????  why not this.handleChange
-    const categories = ApiCaller.getAllCategories();
     return (
       <form>
-        <TextInput 
-          value={this.state.name} 
-          id="name" label="Название" 
-          onChange={this.handleChange} /> 
-        <Select 
-          value={this.state.category} 
-          id="category" 
-          label="Категория" 
-          options={categories} 
+        <TextInput
+          value={this.state.name}
+          id="name" label="Название"
           onChange={this.handleChange} />
-        <IngredientsPicker 
-          label="Ингредиенты" 
+        <Select
+          value={this.state.category.id}
+          id="category"
+          label="Категория"
+          options={this.state.categoriesList}
+          onChange={this.handleChange} />
+        <IngredientsPicker
+          label="Ингредиенты"
           ingredients={this.state.ingredients}
           onChange={this.handleIngredientsChange}
           onAdd={this.handleIngredientsAdd}
           onRemove={this.handleIngredientsRemove} />
         <Textarea 
-          value={this.state.description} 
-          id="description" 
-          label="Рецепт" 
-          onChange={this.handleChange} />
+          value={this.state.description}
+          id="description"
+          label="Рецепт"
+          onChange={this.handleChange}
+          width="600"
+          height="150" />
       </form>
     );
   }

@@ -1,9 +1,22 @@
+@import 'variables';
+
 .btn {
     cursor: pointer;
+    background: $orange;
+    color: white;
+    padding: 10px 15px;
+    border: 0;
 }
 
 .btn--icon {
     background: none;
     border: 0;
     padding: 5px;
+}
+
+.btn--with-icon {
+
+    svg.svg-inline--fa {
+        margin-right: 5px;
+    }
 }

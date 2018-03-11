@@ -1,16 +1,33 @@
 import React, { Component } from "react";
 import {Link} from "react-router-dom";
-import ApiCaller from "./ApiCaller";
 
 class RecipesListContainer extends Component {
-  render() {
+  constructor() {
+    super();
+    this.state = {
+      category: {},
+      recipes: []
+    }
+  }
+
+  componentDidMount() {
     const categoryId = this.props.match.params.categoryId;
-    const category = ApiCaller.getCategory(categoryId);
-    const recipes = ApiCaller.getRecipesList(categoryId);
+    //get category name
+    fetch('/getCategory/' + categoryId)
+      .then(res => res.json())
+      .then(category => this.setState({ category }));
+
+    //get recipes
+    fetch('/getRecipesList/' + categoryId)
+      .then(res => res.json())
+      .then(recipes => this.setState({ recipes }));
+  }
+
+  render() {
     return (
       <div className="recipes-list">
-        <h1>{category.name}</h1>
-        <RecipesList recipes={recipes} columnWidth="3" />
+        <h1>{this.state.category.name}</h1>
+        <RecipesList recipes={this.state.recipes} columnWidth="3" />
       </div>
     );
   }

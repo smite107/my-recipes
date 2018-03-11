@@ -1,13 +1,24 @@
 import React, { Component } from "react";
 import {Link} from "react-router-dom";
-import ApiCaller from "./ApiCaller";
 
 class CategoriesListContainer extends Component {
+  constructor() {
+    super();
+    this.state = {
+      categories: []
+    }
+  }
+
+  componentDidMount() {
+    fetch('/getAllCategories')
+      .then(res => res.json())
+      .then(categories => this.setState({ categories }));
+  }
+
   render() {
-    const categories = ApiCaller.getAllCategories();
     return (
       <div className="categories-list">
-        <CategoriesList categories={categories} columnWidth="3" />
+        <CategoriesList categories={this.state.categories} columnWidth="3" />
       </div>
     );
   }
@@ -29,7 +40,7 @@ const CategoryPreview = ({id, name}) => (
     <Link to={"/category/" + id} className="preview__image-wrap">
       <img src={"../../images/categories/" + id + ".jpg"} alt={name} />
     </Link>
-    <Link to={"/category/" + id} className="preview__name--category">
+    <Link to={"/category/" + id} className="preview__name preview__name--category">
       {name}
     </Link>
   </div>

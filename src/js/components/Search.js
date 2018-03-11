@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import {Link} from "react-router-dom";
+import FontAwesomeIcon from "@fortawesome/react-fontawesome"
+import { faSearch } from "@fortawesome/fontawesome-free-solid"
 
 class Search extends Component {
   constructor(props) { 
@@ -86,7 +88,9 @@ class Search extends Component {
           onChange={(e) => this.setSearchText(e.target.value)}
           value={this.state.searchText}  
           onClick={() => this.setActive(true)} />
-        <button className="search__button" onClick={() => this.setActive(true)} />
+        <button className="search__button" onClick={() => this.setActive(true)}>
+          <FontAwesomeIcon icon={faSearch} size="2x" />
+        </button>
         <ul className="search__results">
           {searchResults}
         </ul>

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import FontAwesomeIcon from "@fortawesome/react-fontawesome"
 import { faTrashAlt } from "@fortawesome/fontawesome-free-regular"
+import { faPlus } from "@fortawesome/fontawesome-free-solid"
 
 class IngredientsPicker extends Component {
   
@@ -34,9 +35,9 @@ class IngredientsPicker extends Component {
         ))}
         <button 
           type="button" 
-          className="ingredients__add"
+          className="ingredients__add btn btn--with-icon"
           onClick={this.props.onAdd}>
-            Добавить
+            <FontAwesomeIcon icon={faPlus} /> Добавить
         </button>
       </div>
     );
