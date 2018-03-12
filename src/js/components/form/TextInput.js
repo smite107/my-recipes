@@ -1,19 +1,15 @@
-import React, { Component } from "react";
+import React from "react";
 
-class TextInput extends Component {
-  render() {
-    return (
-      <div className="form__group">
-        <label htmlFor={this.props.id} className="form__label">{this.props.label}</label>
-        <input 
-          id={this.props.id}
-          name={this.props.id}
-          value={this.props.value}
-          onChange={(e) => this.props.onChange(e)}
-          className="form__control" />
-      </div>
-    );
-  }
-}
+const TextInput = ({id, label, value, onChange}) => (
+  <div className="form__group">
+    <label htmlFor={id} className="form__label">{label}</label>
+    <input 
+      id={id}
+      name={id}
+      value={value}
+      onChange={(e) => onChange(e)}
+      className="form__control" />
+  </div>
+);
 
 export default TextInput;

@@ -3,6 +3,9 @@ import TextInput from "./form/TextInput";
 import Textarea from "./form/Textarea";
 import Select from "./form/Select";
 import IngredientsPicker from "./form/IngredientsPicker";
+import FilePicker from "./form/FilePicker";
+import RecipesPicker from "./form/RecipesPicker";
+import Modal from "./Modal";
 
 class RecipeEdit extends Component {
   constructor(props) {
@@ -12,22 +15,25 @@ class RecipeEdit extends Component {
       name          : "",
       category      : "",
       description   : "",
-      ingredients   : []
+      ingredients   : [],
+      recommended   : []
     }
-    this.handleChange = this.handleChange.bind(this);
-    this.handleIngredientsChange = this.handleIngredientsChange.bind(this);
-    this.handleIngredientsAdd = this.handleIngredientsAdd.bind(this);
-    this.handleIngredientsRemove = this.handleIngredientsRemove.bind(this);
+    this.handleChange           = this.handleChange.bind(this);
+    this.handleIngredientChange = this.handleIngredientChange.bind(this);
+    this.handleIngredientAdd    = this.handleIngredientAdd.bind(this);
+    this.handleIngredientRemove = this.handleIngredientRemove.bind(this);
+    this.handleRecipeRemove     = this.handleRecipeRemove.bind(this);
+    this.handleRecipeAdd        = this.handleRecipeAdd.bind(this);
   }
 
   componentDidMount() {
     const recipeId = this.props.match.params.recipeId;
     //get recipe
-    fetch('/getRecipe/' + recipeId)
+    fetch("/getRecipe/" + recipeId)
       .then(res => res.json())
       .then(recipe => this.setState({ ...recipe }));
     //get categories list
-    fetch('/getAllCategories')
+    fetch("/getAllCategories")
       .then(res => res.json())
       .then(categoriesList => this.setState({ categoriesList }));
   }
@@ -40,23 +46,32 @@ class RecipeEdit extends Component {
     });
   }
 
-  handleIngredientsChange(e, index, type) {
+  handleIngredientChange(e, index, type) {
     const ingredients = this.state.ingredients;
     ingredients[index][type] = e.target.value;
     this.setState({ingredients: ingredients});
   }
 
-  handleIngredientsAdd() {
+  handleIngredientAdd() {
     const ingredients = this.state.ingredients;
     ingredients.push({name: "", count: ""});
     this.setState({ingredients: ingredients});
   }
 
-  handleIngredientsRemove(index) {
+  handleIngredientRemove(index) {
     const ingredients = this.state.ingredients;
     ingredients.splice(index, 1);
     this.setState({ingredients: ingredients});
+  }
+
+  handleRecipeAdd() {
     
+  }
+
+  handleRecipeRemove(index) {
+    const recipes = this.state.recommended;
+    recipes.splice(index, 1);
+    this.setState({recommended: recipes});
   }
 
   render() {
@@ -64,7 +79,8 @@ class RecipeEdit extends Component {
       <form>
         <TextInput
           value={this.state.name}
-          id="name" label="Название"
+          id="name" 
+          label="Название"
           onChange={this.handleChange} />
         <Select
           value={this.state.category.id}
@@ -75,9 +91,9 @@ class RecipeEdit extends Component {
         <IngredientsPicker
           label="Ингредиенты"
           ingredients={this.state.ingredients}
-          onChange={this.handleIngredientsChange}
-          onAdd={this.handleIngredientsAdd}
-          onRemove={this.handleIngredientsRemove} />
+          onChange={this.handleIngredientChange}
+          onAdd={this.handleIngredientAdd}
+          onRemove={this.handleIngredientRemove} />
         <Textarea 
           value={this.state.description}
           id="description"
@@ -85,6 +101,16 @@ class RecipeEdit extends Component {
           onChange={this.handleChange}
           width="600"
           height="150" />
+        <FilePicker
+          id="photo" 
+          label="Фото" />
+        <RecipesPicker
+          id="name" 
+          label="Связанные рецепты"
+          recipes={this.state.recommended}
+          onAdd={this.handleRecipeAdd}
+          onRemove={this.handleRecipeRemove} />
+        <Modal />
       </form>
     );
   }

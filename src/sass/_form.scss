@@ -6,7 +6,7 @@
 
 .form__label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 7px;
 }
 
 .form__group {
@@ -39,4 +39,25 @@
 .ingredients__item-count {
     margin-right: 5px;
     width: 70px;
+}
+
+.recipes-picker__item-image {
+    margin-bottom: 5px;
+}
+
+.recipes-picker__item-image-wrap {
+    position: relative;
+
+    .recipes-picker__item-remove {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 25px;
+        height: 25px;
+        padding: 5px;
+        cursor: pointer;
+        border: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+    }
 }

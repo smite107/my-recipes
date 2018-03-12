@@ -1,23 +1,19 @@
-import React, { Component } from "react";
+import React from "react";
 
-class Select extends Component {
-  render() {
-    return (
-      <div className="form__group">
-        <label htmlFor={this.props.id} className="form__label">{this.props.label}</label>
-        <select 
-          id={this.props.id}
-          name={this.props.id}
-          value={this.props.value}
-          onChange={(e) => this.props.onChange(e)}
-          className="form__control">
-          {this.props.options.map((v) => (
-            <option key={v.id} value={v.id}>{v.name}</option>
-          ))}
-        </select>
-      </div>
-    );
-  }
-}
+const Select = ({id, label, value, options, onChange}) => (
+  <div className="form__group">
+    <label htmlFor={id} className="form__label">{label}</label>
+    <select 
+      id={id}
+      name={id}
+      value={value}
+      onChange={(e) => onChange(e)}
+      className="form__control">
+      {options.map((o) => (
+        <option key={o.id} value={o.id}>{o.name}</option>
+      ))}
+    </select>
+  </div>
+);
 
 export default Select;

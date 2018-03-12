@@ -3,16 +3,23 @@ import {Link} from "react-router-dom";
 import RecipesList from "./RecipesList";
 
 class RecipeContainer extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      recipe: {}
+      recipe: {
+        id         : this.props.match.params.recipeId,
+        name       : "",
+        description: "",
+        category   : {},
+        ingredients: [],
+        recommended: []
+      }
     }
   }
 
   componentDidMount() {
     const recipeId = this.props.match.params.recipeId;
-    fetch('/getRecipe/' + recipeId)
+    fetch("/getRecipe/" + recipeId)
       .then(res => res.json())
       .then(recipe => this.setState({ recipe }));
   }
@@ -25,7 +32,7 @@ class RecipeContainer extends Component {
 }
 
 const Ingredient = ({ingredient}) => (
-  <li key={ingredient.name}>{ingredient.name + ((ingredient.count != "") ? " — " + ingredient.count : "")}</li>
+  <li>{ingredient.name + ((ingredient.count != "") ? " — " + ingredient.count : "")}</li>
 );
 
 const Recipe = ({recipe}) => (
@@ -39,8 +46,8 @@ const Recipe = ({recipe}) => (
       <div className="col--6">
         <h2>Ингредиенты</h2>
         <ul className="marked">
-          {recipe.ingredients.map((i) => (
-            <Ingredient ingredient={i} />
+          {recipe.ingredients.map((ingredient, index) => (
+            <Ingredient ingredient={ingredient} key={index} />
           ))}
         </ul>
       </div>
@@ -54,4 +61,5 @@ const Recipe = ({recipe}) => (
   </div>
 );
 
+export {RecipeContainer}
 export default Recipe;

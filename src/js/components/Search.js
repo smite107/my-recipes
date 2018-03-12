@@ -3,6 +3,12 @@ import {Link} from "react-router-dom";
 import FontAwesomeIcon from "@fortawesome/react-fontawesome"
 import { faSearch } from "@fortawesome/fontawesome-free-solid"
 
+const SearchItem = ({id, name, onClick}) => (
+  <li onClick={() => onClick(name)}>
+    <Link to={"/recipe/" + id}>{name}</Link>
+  </li>
+);
+
 class Search extends Component {
   constructor(props) { 
     super(props); 
@@ -10,6 +16,8 @@ class Search extends Component {
       searchText: "",
       active    : false 
     }; 
+
+    this.handleSelect = this.handleSelect.bind(this);
   }
 
   componentWillMount() {
@@ -26,7 +34,7 @@ class Search extends Component {
     //https://medium.com/@pitipatdop/little-neat-trick-to-capture-click-outside-react-component-5604830beb7f
     //other solution
     //https://www.jamestease.co.uk/blether/detect-clicks-outside-element-with-react-components
-    if(!this.node.contains(e.target)) {
+    if(!this.searchWrap.contains(e.target)) {
       this.setActive(false);
       // the click was outside your component
     }
@@ -50,15 +58,9 @@ class Search extends Component {
     this.setState({active: state});
   }
 
-  createListItem(recipe) {
-    return (
-      <li key={recipe.id} onClick={() => { 
-                                      this.setActive(false); 
-                                      this.setSearchText(recipe.name); } 
-                                  }>
-        <Link to={"/recipe/" + recipe.id}>{recipe.name}</Link>
-      </li>
-    );
+  handleSelect(name) {
+    this.setActive(false); 
+    this.setSearchText(name);
   }
 
   render() {
@@ -73,14 +75,14 @@ class Search extends Component {
 
     recipes.forEach((recipe) => {
       if (this.state.searchText.length > 2 && recipe.name.toLowerCase().indexOf(this.state.searchText.toLowerCase()) !== -1) {
-        searchResults.push(this.createListItem(recipe));
+        searchResults.push(<SearchItem key={recipe.id} name={recipe.name} id={recipe.id} onClick={this.handleSelect} />);
       }
     });
 
     return (
       <div 
           className={"search " + (this.state.active ? "active" : "")}
-          ref={node => this.node = node}>
+          ref={searchWrap => this.searchWrap = searchWrap}>
         <input 
           className="search__box" 
           type="text" 

@@ -13,12 +13,12 @@ class RecipesListContainer extends Component {
   componentDidMount() {
     const categoryId = this.props.match.params.categoryId;
     //get category name
-    fetch('/getCategory/' + categoryId)
+    fetch("/getCategory/" + categoryId)
       .then(res => res.json())
       .then(category => this.setState({ category }));
 
     //get recipes
-    fetch('/getRecipesList/' + categoryId)
+    fetch("/getRecipesList/" + categoryId)
       .then(res => res.json())
       .then(recipes => this.setState({ recipes }));
   }
@@ -35,9 +35,9 @@ class RecipesListContainer extends Component {
 
 const RecipesList = ({recipes, columnWidth}) => (
   <div className="row">
-    {recipes.map((r) => (
-      <div className={"col--" + columnWidth} key={r.id}>
-        <RecipePreview id={r.id} name={r.name} />
+    {recipes.map((recipe) => (
+      <div className={"col--" + columnWidth + " mb--30"} key={recipe.id}>
+        <RecipePreview id={recipe.id} name={recipe.name} />
       </div>
     ))}
   </div>

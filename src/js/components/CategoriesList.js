@@ -10,7 +10,7 @@ class CategoriesListContainer extends Component {
   }
 
   componentDidMount() {
-    fetch('/getAllCategories')
+    fetch("/getAllCategories")
       .then(res => res.json())
       .then(categories => this.setState({ categories }));
   }
