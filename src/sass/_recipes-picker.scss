@@ -1,0 +1,21 @@
+.recipes-picker {
+    .recipes-picker__image-wrap {
+        position: relative;
+
+        .recipes-picker__image {
+            margin-bottom: 5px;
+        }
+
+        .recipes-picker__remove {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            border: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+        }
+    }
+}

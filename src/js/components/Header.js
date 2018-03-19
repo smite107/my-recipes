@@ -13,7 +13,7 @@ class Header extends Component {
         </Link>
         <NavMenuContainer />
         <div className="pull-right">
-          <Search />
+          <Search theme="transparent" />
         </div>
       </header>
     );

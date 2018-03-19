@@ -3,8 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "express": "^4.16.2",
+    "material-icons": "^0.1.0",
+    "mysql": "^2.15.0",
+    "npm": "^5.7.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.1"
   },
   "scripts": {
@@ -15,23 +20,17 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost:3002",
+  "proxy": "http://localhost:3003",
   "devDependencies": {
-    "@fortawesome/fontawesome": "^1.1.4",
-    "@fortawesome/fontawesome-free-regular": "^5.0.8",
-    "@fortawesome/fontawesome-free-solid": "^5.0.8",
-    "@fortawesome/react-fontawesome": "0.0.17",
     "babel-eslint": "^8.2.2",
     "browser-sync": "^2.23.6",
     "eslint-plugin-react": "^7.7.0",
-    "express": "^4.16.2",
     "gulp": "^3.9.1",
     "gulp-clean-css": "^3.9.2",
     "gulp-eslint": "^4.0.2",
     "gulp-plumber": "^1.2.0",
     "gulp-sass": "^3.1.0",
     "gulp-sourcemaps": "^2.6.4",
-    "nodemon": "^1.17.1",
-    "react-router-dom": "^4.2.2"
+    "nodemon": "^1.17.1"
   }
 }

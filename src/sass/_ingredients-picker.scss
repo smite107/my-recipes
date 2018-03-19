@@ -1,0 +1,19 @@
+.ingredients-picker {
+    .ingredients-picker__wrap {
+        margin-bottom: 8px;
+
+        .ingredients-picker__name {
+            margin-right: 3px;
+            width: 200px;
+            min-width: 200px;
+            vertical-align: top;
+        }
+
+        .ingredients-picker__count {
+            margin-right: 5px;
+            width: 70px;
+            min-width: 70px;
+            vertical-align: top;
+        }
+    }
+}

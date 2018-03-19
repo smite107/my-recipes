@@ -1,5 +1,8 @@
-var express = require('express');
+var express = require("express");
 var app = express();
+
+//var db = require("./db_connect");
+//db.connect("smite", "smite107", "localhost", "recipes");
 
 app.get('/getAllCategories', function (req, res) {
   const categories = [
@@ -94,6 +97,6 @@ app.get('/getRecipe/:id', function (req, res) {
   res.send(recipe);
 });
 
-app.listen(3002, function () {
-  console.log('Start server on port 3002!');
+app.listen(3003, function () {
+  console.log('Start server on port 3003!');
 });

@@ -5,7 +5,6 @@ import Select from "./form/Select";
 import IngredientsPicker from "./form/IngredientsPicker";
 import FilePicker from "./form/FilePicker";
 import RecipesPicker from "./form/RecipesPicker";
-import Modal from "./Modal";
 
 class RecipeEdit extends Component {
   constructor(props) {
@@ -110,7 +109,6 @@ class RecipeEdit extends Component {
           recipes={this.state.recommended}
           onAdd={this.handleRecipeAdd}
           onRemove={this.handleRecipeRemove} />
-        <Modal />
       </form>
     );
   }

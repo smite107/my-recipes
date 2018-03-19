@@ -6,18 +6,26 @@
     color: white;
     padding: 10px 15px;
     border: 0;
-}
 
-.btn--icon {
-    background: transparent;
-    color: inherit;
-    border: 0;
-    padding: 5px;
-}
+    &.btn--icon {
+        background: transparent;
+        color: inherit;
+        border: 0;
+        padding: 6px;
+    }
 
-.btn--with-icon {
+    &.btn--with-icon {
+        padding: 10px 15px 10px 10px;
 
-    svg.svg-inline--fa {
-        margin-right: 5px;
+        i {
+            margin-right: 5px;
+            vertical-align: top;
+        }
+
+        span {
+            vertical-align: top;
+            display: inline-block;
+            margin-top: 2px;
+        }
     }
 }

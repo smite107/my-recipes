@@ -1,63 +1,19 @@
 @import 'variables';
 
-.form__group {
+.form-group {
     margin-bottom: 15px;
-}
 
-.form__label {
-    display: block;
-    margin-bottom: 7px;
-}
+    .form-group__label {
+	    display: block;
+	    margin-bottom: 7px;
+	}
 
-.form__group {
+	.form-group__control {
+	    min-width: 300px;
 
-    input:not([type='checkbox']):not([type='radio']), select, textarea {
-        padding: 8px;
-        border: 1px $input-border-color solid;
-    }
-}
-
-.form__control {
-    min-width: 300px;
-}
-
-/*ingredients*/
-
-.ingredients {
-
-}
-
-.ingredients__item-wrap {
-    margin-bottom: 8px;
-}
-
-.ingredients__item-name {
-    margin-right: 3px;
-    width: 200px;
-}
-
-.ingredients__item-count {
-    margin-right: 5px;
-    width: 70px;
-}
-
-.recipes-picker__item-image {
-    margin-bottom: 5px;
-}
-
-.recipes-picker__item-image-wrap {
-    position: relative;
-
-    .recipes-picker__item-remove {
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 25px;
-        height: 25px;
-        padding: 5px;
-        cursor: pointer;
-        border: 0;
-        background-color: rgba(0, 0, 0, 0.5);
-        color: white;
-    }
+	    &:not([type='checkbox']):not([type='radio']) {
+	        padding: 8px;
+	        border: 1px $input-border-color solid;
+	    }
+	}
 }

@@ -1,23 +1,10 @@
 import React, { Component } from "react";
-import FontAwesomeIcon from "@fortawesome/react-fontawesome";
-import { faTimes } from "@fortawesome/fontawesome-free-solid";
 
-class Modal extends Component {
-  constructor() {
-    super();
-    this.state = {
-      visible: true
-    }
-  }
-
-  show() {
-    this.setState({visible: true});
-  }
-
+class Modal extends Component {  
   hide() {
-    this.setState({visible: false});
+    this.props.onClose()
   }
-
+  
   handleClick(e) {
     if(e.target == this.overlay) {
       this.hide();
@@ -27,20 +14,21 @@ class Modal extends Component {
   render() {
     return (
       <div 
-        className={"modal " + (this.state.visible ? "open" : "close")}
+        className={"modal " + (this.props.visible ? "modal--open" : "modal--close")}
         onClick={(e) => this.handleClick(e)} 
         ref={overlay => this.overlay = overlay}>
         <div className="modal__body">
-          Something
+          <h1 className="modal__header">{this.props.header}</h1>
+          {this.props.children}
           <button 
             type="button"
             className="modal__close btn btn--icon"
             onClick={() => this.hide()}>
-            <FontAwesomeIcon icon={faTimes} />
+            <i className="mi mi-close"></i>
           </button>
         </div>
       </div>
-    )
+    );
   }
 }
 

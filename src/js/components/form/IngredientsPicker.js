@@ -1,30 +1,27 @@
 import React from "react";
-import FontAwesomeIcon from "@fortawesome/react-fontawesome";
-import { faTrashAlt } from "@fortawesome/fontawesome-free-regular";
-import { faPlus } from "@fortawesome/fontawesome-free-solid";
 
 const IngredientSelector = ({ingredient, index, onChange, onRemove}) => (
-  <div className="ingredients__item-wrap">
+  <div className="ingredients-picker__wrap">
     <input
-      className="ingredients__item-name"
+      className="form-group__control ingredients-picker__name"
       value={ingredient.name}
       onChange={(e) => (onChange(e, index, "name"))} />
     <input
-      className="ingredients__item-count"
+      className="form-group__control ingredients-picker__count"
       value={ingredient.count}
       onChange={(e) => (onChange(e, index, "count"))} />
     <button 
       type="button" 
-      className="ingredients__item-remove btn btn--icon color--danger"
+      className="ingredients-picker__remove btn btn--icon"
       onClick={() => (onRemove(index))}>
-        <FontAwesomeIcon icon={faTrashAlt} />
+        <i className="mi mi-close mi-18 color--danger"></i>
     </button>
   </div>
 );
 
 const IngredientsPicker = ({label, ingredients, onAdd, onChange, onRemove}) => (
-  <div className="form__group ingredients">
-    <label className="form__label">{label}</label>
+  <div className="form-group ingredients-picker">
+    <label className="form-group__label">{label}</label>
     {ingredients.map((ingredient, index) => (
       <IngredientSelector 
         key={index}
@@ -35,9 +32,9 @@ const IngredientsPicker = ({label, ingredients, onAdd, onChange, onRemove}) => (
     ))}
     <button 
       type="button" 
-      className="ingredients__add btn btn--with-icon"
+      className="ingredients-picker__add btn btn--with-icon"
       onClick={onAdd}>
-        <FontAwesomeIcon icon={faPlus} /> Добавить
+        <i className="mi mi-add mi-18"></i><span>Добавить</span>
     </button>
   </div>
 );

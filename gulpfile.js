@@ -28,7 +28,8 @@ gulp.task('sass', () => {
 gulp.task('browser-sync', () => {
   browserSync.init({
     proxy: "localhost:3000",
-    open: false
+    open: false,
+    port: 3001
   });
 });
 

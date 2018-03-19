@@ -7,13 +7,13 @@ const Textarea = ({id, label, value, width, height, onChange}) => {
   };
 
   return (
-    <div className="form__group">
-      <label htmlFor={id} className="form__label">{label}</label>
+    <div className="form-group">
+      <label htmlFor={id} className="form-group__label">{label}</label>
       <textarea id={id}
                 name={id}
                 value={value}
                 onChange={(e) => onChange(e)}
-                className="form__control"
+                className="form-group__control"
                 style={styles} />
     </div>
   );

@@ -5,8 +5,8 @@ class FilePicker extends Component {
 
   render() {
     return (
-      <div className="form__group">
-        <label htmlFor={this.props.id} className="form__label">{this.props.label}</label>
+      <div className="form-group">
+        <label htmlFor={this.props.id} className="form-group__label">{this.props.label}</label>
         <input 
           type="file"
           id={this.props.id}
@@ -14,7 +14,7 @@ class FilePicker extends Component {
           ref={input => {
             this.fileInput = input;
           }}
-          className="form__control" />
+          className="form-group__control" />
       </div>
     );
   }

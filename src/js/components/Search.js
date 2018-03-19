@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import {Link} from "react-router-dom";
-import FontAwesomeIcon from "@fortawesome/react-fontawesome"
-import { faSearch } from "@fortawesome/fontawesome-free-solid"
 
 const SearchItem = ({id, name, onClick}) => (
   <li onClick={() => onClick(name)}>
@@ -81,21 +79,21 @@ class Search extends Component {
 
     return (
       <div 
-          className={"search " + (this.state.active ? "active" : "")}
-          ref={searchWrap => this.searchWrap = searchWrap}>
-        <input 
-          className="search__box" 
-          type="text" 
-          placeholder="Поиск..." 
-          onChange={(e) => this.setSearchText(e.target.value)}
-          value={this.state.searchText}  
-          onClick={() => this.setActive(true)} />
-        <button className="search__button" onClick={() => this.setActive(true)}>
-          <FontAwesomeIcon icon={faSearch} size="2x" />
-        </button>
-        <ul className="search__results">
-          {searchResults}
-        </ul>
+        className={"search " + (this.state.active ? "search--active " : "") + (this.props.theme == "transparent" ? "search--theme-transparent" : "")}
+        ref={searchWrap => this.searchWrap = searchWrap}>
+          <input 
+            className="search__input" 
+            type="text" 
+            placeholder="Поиск..." 
+            onChange={(e) => this.setSearchText(e.target.value)}
+            value={this.state.searchText}  
+            onClick={() => this.setActive(true)} />
+          <button className="search__button" onClick={() => this.setActive(true)}>
+            <i className="mi mi-search mi-24"></i>
+          </button>
+          <ul className="search__results">
+            {searchResults}
+          </ul>
       </div>
     );
   }
