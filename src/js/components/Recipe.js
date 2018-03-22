@@ -7,12 +7,13 @@ class RecipeContainer extends Component {
     super(props);
     this.state = {
       recipe: {
-        id         : this.props.match.params.recipeId,
-        name       : "",
-        description: "",
-        category   : {},
-        ingredients: [],
-        recommended: []
+        id          : "",
+        name        : "",
+        description : "",
+        categoryId  : {},
+        categoryName: "",
+        ingredients : [],
+        recommended : []
       }
     }
   }
@@ -38,7 +39,7 @@ const Ingredient = ({ingredient}) => (
 const Recipe = ({recipe}) => (
   <div className="recipe">
     <h1 className="recipe__header">{recipe.name}</h1>
-    <Link to={"/category/" + recipe.category.id} className="recipe__category mb--30">{recipe.category.name}</Link>
+    <Link to={"/category/" + recipe.categoryId} className="recipe__category mb--30">{recipe.categoryName}</Link>
     <div className="row mb--30">
       <div className="col--6">
         <img src={"../../images/uploads/" + recipe.id + "_big.jpg"} alt={recipe.name} className="recipe__photo" />
@@ -57,7 +58,7 @@ const Recipe = ({recipe}) => (
       {recipe.description}
     </div>
     <h2>Попробуйте вместе с</h2>
-    <RecipesList recipes={recipe.recommended} columnWidth="3" />
+    {/*<RecipesList recipes={recipe.recommended} columnWidth="3" /> */}
   </div>
 );
 

@@ -9,37 +9,56 @@ class DB {
 		});
 
 		this.con.connect(function(err) {
-		  if (err) throw err;
+		  if (err) {
+		  	throw err;
+		  }
 		  console.log("Database connected!");
 		});
 	}
 
 	createDB(name) {
 		this.con.query("CREATE DATABASE " + name, function (err, result) {
-		  if (err) throw err;
+		  if (err) {
+		  	throw err;
+		  }
 		  console.log("Database created");
 		});
 	}
 
-	insert(table, item) {
+	insert(table, item, returnId) {
 		var names = [];
 		var values = [];
 		for (var name in item) {
-  		if (item.hasOwnProperty(name)) {
-  			names.push(name);
-  			values.push(item[name]);
+	  		if (item.hasOwnProperty(name)) {
+	  			names.push(name);
+	  			values.push(item[name]);
+	  		}
   		}
-  	}
-  	names = names.join(",");
-  	values = values.map((value) => ("'" + value + "'")).join(",");
+	  	names = names.join(",");
+	  	values = values.map((value) => ("'" + (typeof value == 'object' ? JSON.stringify(value) : value) + "'")).join(",");
 
 		var sql = "INSERT INTO " + table + " (" + names + ") VALUES (" + values + ")";
-	  this.con.query(sql, function (err, result) {
-	    if (err) throw err;
+	  	this.con.query(sql, function (err, result) {
+	    if (err) {
+	    	throw err;
+	    }
 	    console.log("1 record inserted");
+	    if (returnId) {
+	    	return insertId;
+	    }
 	  });
 	}
 
+	select(sql, callback) {
+		console.log(sql);
+		this.con.query(sql, function (err, result, fields) {
+		    if (err) {
+		    	throw err;
+		    }
+		    callback(result);
+	  	});
+	}
+	
 	/*createTable(name, rows) {
 		//name VARCHAR(255), address VARCHAR(255)
 		var sql = "CREATE TABLE " + name + " (" + rows + ")";
@@ -50,4 +69,4 @@ class DB {
 	}*/
 }
 
-module.exports = new DB();
+module.exports = new DB()

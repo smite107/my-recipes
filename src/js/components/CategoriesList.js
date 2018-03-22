@@ -1,36 +1,15 @@
 import React, { Component } from "react";
 import {Link} from "react-router-dom";
 
-class CategoriesListContainer extends Component {
-  constructor() {
-    super();
-    this.state = {
-      categories: []
-    }
-  }
-
-  componentDidMount() {
-    fetch("/getAllCategories")
-      .then(res => res.json())
-      .then(categories => this.setState({ categories }));
-  }
-
-  render() {
-    return (
-      <div className="categories-list">
-        <CategoriesList categories={this.state.categories} columnWidth="3" />
-      </div>
-    );
-  }
-}
-
 const CategoriesList = ({categories, columnWidth}) => (
-  <div className="row">
-    {categories.map((c) => (
-      <div className={"col--" + columnWidth + " mb--30"} key={c.id}>
-        <CategoryPreview id={c.id} name={c.name} />
-      </div>
-    ))}
+  <div className="categories-list">
+    <div className="row">
+      {categories.map((c) => (
+        <div className={"col--" + columnWidth + " mb--30"} key={c.id}>
+          <CategoryPreview id={c.id} name={c.name} />
+        </div>
+      ))}
+    </div>
   </div>
 );
 
@@ -46,5 +25,5 @@ const CategoryPreview = ({id, name}) => (
   </div>
 );
 
-export {CategoriesListContainer, CategoryPreview}
+export {CategoryPreview}
 export default CategoriesList;

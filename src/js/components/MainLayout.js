@@ -5,7 +5,7 @@ class MainLayout extends Component {
   render() {
     return (
       <div className="app">
-        <Header />
+        <Header categories={this.props.categories} />
         <main>
           {this.props.children}
         </main>

@@ -2,20 +2,30 @@ import React, { Component } from "react";
 import {Link} from "react-router-dom";
 
 class RecipesListContainer extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      category: {},
+      category: {
+        id: "",
+        name: ""
+      },
       recipes: []
     }
   }
 
   componentDidMount() {
-    const categoryId = this.props.match.params.categoryId;
+    this.updateList(this.props.match.params.categoryId);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.updateList(nextProps.match.params.categoryId);
+  }
+
+  updateList(categoryId) {
     //get category name
-    fetch("/getCategory/" + categoryId)
-      .then(res => res.json())
-      .then(category => this.setState({ category }));
+    if (this.props.categories.length) {
+      this.setState({category: this.props.categories.find((c) => (c.id == categoryId))});
+    }
 
     //get recipes
     fetch("/getRecipesList/" + categoryId)

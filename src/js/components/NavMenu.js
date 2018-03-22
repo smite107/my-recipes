@@ -1,27 +1,6 @@
 import React, { Component } from "react";
 import {NavLink} from "react-router-dom";
 
-class NavMenuContainer extends Component {
-  constructor() {
-    super();
-    this.state = {
-      categories: []
-    }
-  }
-
-  componentDidMount() {
-    fetch("/getAllCategories")
-      .then(res => res.json())
-      .then(categories => this.setState({ categories }));
-  }
-
-  render() {
-    return (
-      <NavMenu categories={this.state.categories} />
-    );
-  }
-}
-
 const NavMenu = ({categories}) => (
   <nav className="header__menu">
     <ul>
@@ -34,5 +13,4 @@ const NavMenu = ({categories}) => (
   </nav>
 );
 
-export {NavMenuContainer}
 export default NavMenu;
