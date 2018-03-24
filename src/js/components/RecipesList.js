@@ -1,16 +1,18 @@
 import React, { Component } from "react";
 import {Link} from "react-router-dom";
 
+const cleanState = {
+  category: {
+    id: "",
+    name: ""
+  },
+  recipes: []
+}
+
 class RecipesListContainer extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      category: {
-        id: "",
-        name: ""
-      },
-      recipes: []
-    }
+    this.state = cleanState;
   }
 
   componentDidMount() {
@@ -22,10 +24,11 @@ class RecipesListContainer extends Component {
   }
 
   updateList(categoryId) {
+    //clear state
+    this.setState(cleanState);
+
     //get category name
-    if (this.props.categories.length) {
-      this.setState({category: this.props.categories.find((c) => (c.id == categoryId))});
-    }
+    this.setState({category: this.props.categories.find((c) => (c.id == categoryId)) || {}});
 
     //get recipes
     fetch("/getRecipesList/" + categoryId)

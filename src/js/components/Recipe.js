@@ -2,20 +2,22 @@ import React, { Component } from "react";
 import {Link} from "react-router-dom";
 import RecipesList from "./RecipesList";
 
+const cleanState = {
+  recipe: {
+    id          : "",
+    name        : "",
+    description : "",
+    categoryId  : {},
+    categoryName: "",
+    ingredients : []
+  },
+  recommended : []
+}
+
 class RecipeContainer extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      recipe: {
-        id          : "",
-        name        : "",
-        description : "",
-        categoryId  : {},
-        categoryName: "",
-        ingredients : []
-      },
-      recommended : []
-    }
+    this.state = cleanState;
   }
 
   componentDidMount() {
@@ -25,8 +27,9 @@ class RecipeContainer extends Component {
   componentWillReceiveProps(nextProps) {
     this.updateRecipe(nextProps.match.params.recipeId);
   }
-
+  
   updateRecipe(recipeId) {
+    this.setState(cleanState);
     fetch("/getRecipe/" + recipeId)
       .then(res => res.json())
       .then(recipe => this.setState({ recipe }));
@@ -68,8 +71,12 @@ const Recipe = ({recipe, recommended}) => (
       <h2>Рецепт</h2>
       {recipe.description}
     </div>
-    <h2>Попробуйте вместе с</h2>
-    <RecipesList recipes={recommended} columnWidth="3" />
+    {recommended.length > 0 &&
+      <div>
+        <h2>Попробуйте вместе с</h2>
+        <RecipesList recipes={recommended} columnWidth="3" />
+      </div>
+    }
   </div>
 );
 
