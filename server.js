@@ -11,6 +11,12 @@ db.insert("recipes", {
   ingredients: "[{name: 'Крылья куриные', count: '1,2 кг'}, {name: 'Соль', count: '1 ч. л.'}, {name: 'Масло сливочное', count: '60 г'}, {name: 'Сахар коричневый', count: '2 ст. л.'}]"
 });*/
 
+/*
+db.insert("recommended", {
+  recipeId: 1,
+  recommendedId: 2
+});*/
+
 app.get('/getAllCategories', function (req, res) {
   db.select("SELECT * FROM categories", function(result){
     res.send(result);
@@ -27,6 +33,13 @@ app.get('/getCategory/:id', function (req, res) {
 app.get('/getRecipesList/:categoryId', function (req, res) {
   const categoryId = req.params.categoryId;
   db.select("SELECT id, name FROM recipes WHERE category = " + categoryId, function(result) {
+    res.send(result);
+  });
+});
+
+app.get('/getRecommendedRecipesList/:recipeId', function (req, res) {
+  const recipeId = req.params.recipeId;
+  db.select("SELECT id, name FROM recommended as rec INNER JOIN recipes as r ON rec.recommendedId = r.id WHERE recipeId = " + recipeId, function(result) {
     res.send(result);
   });
 });

@@ -12,22 +12,33 @@ class RecipeContainer extends Component {
         description : "",
         categoryId  : {},
         categoryName: "",
-        ingredients : [],
-        recommended : []
-      }
+        ingredients : []
+      },
+      recommended : []
     }
   }
 
   componentDidMount() {
-    const recipeId = this.props.match.params.recipeId;
+    this.updateRecipe(this.props.match.params.recipeId);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.updateRecipe(nextProps.match.params.recipeId);
+  }
+
+  updateRecipe(recipeId) {
     fetch("/getRecipe/" + recipeId)
       .then(res => res.json())
       .then(recipe => this.setState({ recipe }));
+
+    fetch("/getRecommendedRecipesList/" + recipeId)
+      .then(res => res.json())
+      .then(recommended => this.setState({ recommended }));
   }
 
   render() {
     return (
-      <Recipe recipe={this.state.recipe} />
+      <Recipe recipe={this.state.recipe} recommended={this.state.recommended} />
     );
   }
 }
@@ -36,7 +47,7 @@ const Ingredient = ({ingredient}) => (
   <li>{ingredient.name + ((ingredient.count != "") ? " — " + ingredient.count : "")}</li>
 );
 
-const Recipe = ({recipe}) => (
+const Recipe = ({recipe, recommended}) => (
   <div className="recipe">
     <h1 className="recipe__header">{recipe.name}</h1>
     <Link to={"/category/" + recipe.categoryId} className="recipe__category mb--30">{recipe.categoryName}</Link>
@@ -58,7 +69,7 @@ const Recipe = ({recipe}) => (
       {recipe.description}
     </div>
     <h2>Попробуйте вместе с</h2>
-    {/*<RecipesList recipes={recipe.recommended} columnWidth="3" /> */}
+    <RecipesList recipes={recommended} columnWidth="3" />
   </div>
 );
 
