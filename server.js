@@ -1,7 +1,9 @@
-var express = require("express");
-var app = express();
+let express = require("express");
+let db      = require("./db_connect");
+let app     = express();
 
-var db = require("./db_connect");
+app.use(express.json({ type: '*/*' }));
+
 db.connect("smite", "smite107", "localhost", "recipes");
 /*
 db.insert("recipes", {
@@ -37,6 +39,13 @@ app.get('/getRecipesList/:categoryId', function (req, res) {
   });
 });
 
+app.post('/getRecipeByName', function (req, res) {
+  const name = req.body.name;
+  db.select("SELECT id, name FROM recipes WHERE name LIKE '%" + name + "%'", function(result) {
+    res.send(result);
+  });
+});
+
 app.get('/getRecommendedRecipesList/:recipeId', function (req, res) {
   const recipeId = req.params.recipeId;
   db.select("SELECT id, name FROM recommended as rec INNER JOIN recipes as r ON rec.recommendedId = r.id WHERE recipeId = " + recipeId, function(result) {
@@ -54,8 +63,21 @@ app.get('/getRecipe/:id', function (req, res) {
       result[0].ingredients = JSON.parse(result[0].ingredients);
     }
     
-    console.log(result);
+    //console.log(result);
     res.send(result[0]);
+  });
+});
+
+app.post('/updateRecipe', function (req, res) {
+  const id = req.body.id;
+  db.update("recipes", req.body.recipe, "id = " + id, function(result) {
+    res.send(true);
+  });
+});
+
+app.post('/addRecipe', function (req, res) {
+  db.insert("recipes", req.body.recipe, function(result) {
+    res.send(result.toString());
   });
 });
 

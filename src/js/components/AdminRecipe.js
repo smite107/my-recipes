@@ -6,35 +6,49 @@ import IngredientsPicker from "./form/IngredientsPicker";
 import FilePicker from "./form/FilePicker";
 import RecipesPicker from "./form/RecipesPicker";
 
-class RecipeEdit extends Component {
+const cleanState = {
+  id          : "",
+  name        : "",
+  description : "",
+  categoryId  : "",
+  ingredients : [],
+  recommended : [],
+  categoriesList: []
+}
+
+class AdminRecipe extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      categoriesList: [],
-      name          : "",
-      category      : "",
-      description   : "",
-      ingredients   : [],
-      recommended   : []
-    }
+    this.state = cleanState;
+
     this.handleChange           = this.handleChange.bind(this);
     this.handleIngredientChange = this.handleIngredientChange.bind(this);
     this.handleIngredientAdd    = this.handleIngredientAdd.bind(this);
     this.handleIngredientRemove = this.handleIngredientRemove.bind(this);
     this.handleRecipeRemove     = this.handleRecipeRemove.bind(this);
     this.handleRecipeAdd        = this.handleRecipeAdd.bind(this);
+    this.handleSubmit           = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
     const recipeId = this.props.match.params.recipeId;
-    //get recipe
-    fetch("/getRecipe/" + recipeId)
-      .then(res => res.json())
-      .then(recipe => this.setState({ ...recipe }));
+    
+    if (recipeId) {
+      //get recipe
+      fetch("/getRecipe/" + recipeId)
+        .then(res => res.json())
+        .then(recipe => this.setState({ ...recipe }));
+    }
+
     //get categories list
-    fetch("/getAllCategories")
-      .then(res => res.json())
-      .then(categoriesList => this.setState({ categoriesList }));
+    this.setState({categoriesList: this.props.categories});
+
+    //if (recipeId) {
+    //  //get recommended recipes
+    //  fetch("/getRecommendedRecipesList/" + recipeId)
+    //    .then(res => res.json())
+    //    .then(recommended => this.setState({ recommended }));
+    //}
   }
 
   handleChange(e) {
@@ -73,17 +87,43 @@ class RecipeEdit extends Component {
     this.setState({recommended: recipes});
   }
 
+  handleSubmit(e) {
+    e.preventDefault();
+    const data = {
+      id: this.state.id,
+      recipe: {
+        name: this.state.name,
+        category: this.state.categoryId ? this.state.categoryId : this.state.categoriesList[0].id,
+        description: this.state.description,
+        ingredients: this.state.ingredients
+      }
+    }
+
+    if (this.props.type === "add") {
+      fetch("/addRecipe", {
+        method: "POST",
+        body: JSON.stringify(data)
+      }).then(res => res.json())
+        .then(resultId => this.props.history.push("/admin/edit/" + resultId));
+    } else {
+      fetch("/updateRecipe", {
+        method: "POST",
+        body: JSON.stringify(data)
+      }).then(alert('Saved!'));
+    }
+  }
+
   render() {
     return (
-      <form>
+      <form onSubmit={this.handleSubmit}>
         <TextInput
           value={this.state.name}
           id="name" 
           label="Название"
           onChange={this.handleChange} />
         <Select
-          value={this.state.category.id}
-          id="category"
+          value={this.state.categoryId}
+          id="categoryId"
           label="Категория"
           options={this.state.categoriesList}
           onChange={this.handleChange} />
@@ -108,10 +148,12 @@ class RecipeEdit extends Component {
           label="Связанные рецепты"
           recipes={this.state.recommended}
           onAdd={this.handleRecipeAdd}
-          onRemove={this.handleRecipeRemove} />
+          onRemove={this.handleRecipeRemove}
+          categories={this.state.categoriesList} />
+        <button type="submit" className="btn">Сохранить</button>
       </form>
     );
   }
 }
 
-export default RecipeEdit;
+export default AdminRecipe;

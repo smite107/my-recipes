@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Modal from "../Modal";
 import Search from "../Search";
+import Select from "./Select";
 
 const RecipeSelector = ({recipe, index, onRemove}) => (
   <div className="col--3 mb--30">
@@ -55,19 +56,36 @@ class RecipesPicker extends Component {
         </button>
         <ChooseRecipeModal 
           visible={this.state.dialogVisible}
-          onClose={this.closeRecipeChoosing} />
+          onClose={this.closeRecipeChoosing}
+          categories={this.props.categories} />
       </div>
     );
   }
 }
 
-const ChooseRecipeModal = ({visible, onClose}) => (
-  <Modal 
-    header="Выберите рецепт" 
-    visible={visible}
-    onClose={() => onClose()}>
-      <Search />
-  </Modal>
-);
+class ChooseRecipeModal extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  handleChange() {
+    alert("f");
+  }
+
+  render() {
+    return (
+      <Modal 
+        header="Выберите рецепт" 
+        visible={this.props.visible}
+        onClose={() => this.props.onClose()}>
+          <Select
+            label="Категория"
+            options={this.props.categories}
+            onChange={(e) => this.handleChange(e)} />
+          <Search />
+      </Modal>
+    );
+  }
+}
 
 export default RecipesPicker;

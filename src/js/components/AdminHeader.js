@@ -1,19 +1,19 @@
 import React from "react";
-import NavMenu from "./NavMenu";
+import AdminNavMenu from "./AdminNavMenu";
 import Search from "./Search";
 import {Link} from "react-router-dom";
 import logo from "../../images/logo.png";
 
-const Header = ({categories}) => (
+const AdminHeader = () => (
   <header>
-    <Link to="/" className="header__logo">
+    <Link to="/admin" className="header__logo">
       <img src={logo} alt="Мои рецепты" />
     </Link>
-    <NavMenu categories={categories} />
+    <AdminNavMenu />
     <div className="pull-right">
       <Search theme="transparent" />
     </div>
   </header>
 );
 
-export default Header;
+export default AdminHeader;

@@ -12,6 +12,7 @@ class Search extends Component {
     super(props); 
     this.state = {
       searchText: "",
+      recipes   : [],
       active    : false 
     }; 
 
@@ -56,27 +57,28 @@ class Search extends Component {
     this.setState({active: state});
   }
 
+  handleChange(e) {
+    this.setSearchText(e.target.value);
+
+    if (e.target.value.length > 2) {
+      fetch("/getRecipeByName", {
+        method: "POST",
+        body: JSON.stringify({name: e.target.value})
+      }).then(res => res.json())
+        .then(recipes => this.setState({ recipes }))
+    } else {
+      this.setState({recipes: []});
+    }
+  }
+
   handleSelect(name) {
     this.setActive(false); 
     this.setSearchText(name);
+
+    // handle this situation.
   }
 
   render() {
-    let searchResults = [];
-    const recipes = [
-      {name: "Картошка фри", id: "1"},
-      {name: "Супер-горох", id: "2"},
-      {name: "Рисик по-китайски", id: "3"},
-      {name: "Удон", id: "4"},
-      {name: "Картофель по-деревенски", id: "5"}
-    ];
-
-    recipes.forEach((recipe) => {
-      if (this.state.searchText.length > 2 && recipe.name.toLowerCase().indexOf(this.state.searchText.toLowerCase()) !== -1) {
-        searchResults.push(<SearchItem key={recipe.id} name={recipe.name} id={recipe.id} onClick={this.handleSelect} />);
-      }
-    });
-
     return (
       <div 
         className={"search " + (this.state.active ? "search--active " : "") + (this.props.theme == "transparent" ? "search--theme-transparent" : "")}
@@ -85,14 +87,20 @@ class Search extends Component {
             className="search__input" 
             type="text" 
             placeholder="Поиск..." 
-            onChange={(e) => this.setSearchText(e.target.value)}
+            onChange={(e) => this.handleChange(e)}
             value={this.state.searchText}  
             onClick={() => this.setActive(true)} />
           <button className="search__button" onClick={() => this.setActive(true)}>
             <i className="mi mi-search mi-24"></i>
           </button>
           <ul className="search__results">
-            {searchResults}
+            {this.state.recipes.map((recipe) => (
+              <SearchItem 
+                key={recipe.id} 
+                name={recipe.name} 
+                id={recipe.id} 
+                onClick={this.handleSelect} />
+            ))}
           </ul>
       </div>
     );

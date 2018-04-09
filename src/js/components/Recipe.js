@@ -27,9 +27,10 @@ class RecipeContainer extends Component {
   componentWillReceiveProps(nextProps) {
     this.updateRecipe(nextProps.match.params.recipeId);
   }
-  
+
   updateRecipe(recipeId) {
     this.setState(cleanState);
+    
     fetch("/getRecipe/" + recipeId)
       .then(res => res.json())
       .then(recipe => this.setState({ recipe }));
